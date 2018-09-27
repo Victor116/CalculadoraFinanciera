@@ -1,7 +1,7 @@
 {
-  "name": "calculadora financiera",
+  "name": "calculadora",
   "version": "1.0.0",
-  "description": "realizar procesos de finanzas ",
+  "description": "calculdora financiera",
   "author": "Victor",
   "private": true,
   "scripts": {

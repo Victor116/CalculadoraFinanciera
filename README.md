@@ -1,6 +1,6 @@
-# calculadora financiera
+# calculadora
 
-> realizar procesos de finanzas 
+> calculdora financiera
 
 ## Build Setup
 
