@@ -1,4 +1,4 @@
-<template>
+<template lang="pug">
   <section class="section">
     <div class="columns is-mobile">
       <div
