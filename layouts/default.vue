@@ -53,8 +53,10 @@ export default {
     return {
       items: [
         { title: 'Pago Unico', icon: 'home', to: { name: 'index' } },
+        { title: 'Anualidad Uniforme', icon: '', to: { name: 'anualidadUniforme' } },
         { title: 'Gradiente aritmetico', icon: 'chart-bar', to: { name: 'aritmetico' } },
         { title: 'Gradiente geometrico', icon: 'chart-line', to: { name: 'geometrico' } }
+        
       ]
     }
   }

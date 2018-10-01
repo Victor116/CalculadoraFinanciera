@@ -284,10 +284,10 @@ export default {
     //     this.presente = this.futuro / Math.pow(( 1 + interesNeto ), this.tiempo)
     //   }
     // },
-    // Capitalizable ( interesSimple, tiempo ){
-    //   let resultado = 0
-    //   return resultado = ( interesSimple / tiempo ) / 100
-    // }
+    Capitalizable ( interesSimple, tiempo ){
+      let resultado = 0
+      return resultado = ( interesSimple / tiempo ) / 100
+    }
   }
 }
 </script>

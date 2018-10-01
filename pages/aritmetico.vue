@@ -320,7 +320,6 @@ export default {
         let abajo1 = this.CalcularMathPow(interesNeto, this.tiempo) - 1
         let right = this.tiempo / abajo1
         this.AG = this.G * (left - right)
-        console.log(this.AG)
       }
     },
     CalcularPT () {

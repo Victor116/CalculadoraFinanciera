@@ -199,11 +199,6 @@ export default {
     CalcularPresente () {
       if ( this.futuro > 0 && this.interes > 0 && this.tiempo > 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
         let interesNeto = this.interes / 100
-        console.log(interesNeto)
-        console.log(this.futuro)
-        console.log(this.tiempo)
-        console.log(this.CalcularMathPow(interesNeto, this.tiempo) )
-        console.log(this.futuro / this.CalcularMathPow(interesNeto, this.tiempo) )
         this.presente = this.futuro / this.CalcularMathPow(interesNeto, this.tiempo) 
       }
     },
