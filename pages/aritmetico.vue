@@ -6,28 +6,52 @@
 
     .column.is-12-desktop.is-12-mobile
       .columns.is-multiline.is-mobile
-        //- Futuro
+        //- AA
         .column.is-3-desktop.is-6-mobile
           .card
-            p.card-header-title.has-text-grey Futuro
+            p.card-header-title.has-text-grey AA
             .card-content
               b-input(
-                placeholder="Futuro"
+                placeholder="AA"
                 type="number"
                 min="0"
-                v-model="futuro"
+                v-model="AA"
               )
 
-        //- Presente
+        //- G
         .column.is-3-desktop.is-6-mobile
           .card
-            p.card-header-title.has-text-grey Presente
+            p.card-header-title.has-text-grey G
             .card-content
               b-input(
-                placeholder="Presente"
+                placeholder="G"
                 type="number"
                 min="0"
-                v-model="presente"
+                v-model="G"
+              )
+
+        //- PA
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey PA
+            .card-content
+              b-input(
+                placeholder="PA"
+                type="number"
+                min="0"
+                v-model="PA"
+              ) 
+
+        //- PG
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey PG
+            .card-content
+              b-input(
+                placeholder="PG"
+                type="number"
+                min="0"
+                v-model="PG"
               )
 
         //- Interes
@@ -54,6 +78,17 @@
                 v-model="tiempo"
               )
 
+        //- M # de periodos
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey M # de periodos
+            .card-content
+              b-input(
+                placeholder="M # de periodos"
+                type="number"
+                min="0"
+                v-model="radio"
+              )
     p ¿Capitalizable?
       span.icon
         i.fas.fa-file-invoice-dollar
@@ -62,7 +97,6 @@
         v-model="switchCapitalizable"
         true-value="Si"
         false-value="No"
-        :click="CalcularFuturo()"
       ) {{ switchCapitalizable }}
 
     .block(v-if="this.switchCapitalizable == 'Si'" style="margin-bottom: 2em")     
@@ -108,106 +142,161 @@
     
     div
 
-    p(style="margin-top: 2em") ¿Calcular Interes? 
+    p(style="margin-top: 2em") ¿Calcular Interes Compuesto (ia)? 
       b-switch(
         type="is-success"
-        v-model="switchInteres"
+        v-model="switchInteresCompuesto"
         true-value="Si"
         false-value="No"
-        :click="CalcularInteres()"
-      ) {{ switchInteres }}
+        :click="CalcularInteresCompuesto()"
+      ) {{ switchInteresCompuesto }}
 
-    p ¿Calcular Tiempo? 
+    p ¿Calcular PA? 
       b-switch(
         type="is-success"
-        v-model="switchTiempo"
+        v-model="switchPA"
         true-value="Si"
         false-value="No"
-        :click="CalcularTiempo()"
-      ) {{ switchTiempo }}
+        :click="CalcularPA()"
+      ) {{ switchPA }}
 
-    p ¿Calcular Futuro? 
+    p ¿Calcular PG? 
       b-switch(
         type="is-success"
-        v-model="switchFuturo"
+        v-model="switchPG"
         true-value="Si"
         false-value="No"
-        :click="CalcularFuturo()"
-      ) {{ switchFuturo }}
+        :click="CalcularPG()"
+      ) {{ switchPG }}
 
-    p ¿Calcular Presente? 
+    p ¿Calcular PT? 
       b-switch(
         type="is-success"
-        v-model="switchPresente"
+        v-model="switchPT"
         true-value="Si"
         false-value="No"
-        :click="CalcularPresente()"
-      ) {{ switchPresente }}
+        :click="CalcularPT()"
+      ) {{ switchPT }}
 
-    p(v-if="this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Interes: {{ interes }}%
-    p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'Si' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Tiempo: {{ tiempo }}
-    p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'Si' && this.switchPresente == 'No' ") Futuro: {{ futuro }}
-    p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si' ") Presente: {{ presente }}
+    //- p(v-if="this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Interes: {{ interes }}%
+    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'Si' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Tiempo: {{ tiempo }}
+    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'Si' && this.switchPresente == 'No' ") Futuro: {{ futuro }}
+    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si' ") Presente: {{ presente }}
 
 </template>
 
 <script>
-import BLogo from '@/components/Logo'
-
 export default {
   name: 'Calculadora',
-  components: {
-    BLogo
-  },
   data: () => ({
-    futuro: 0, // F
-    presente: 0, // P
+    AA: 0,
+    G: 0,
+    PA: 0,
+    PG: 0, // p
     interes: 0, // i
     tiempo: 0, // n
 
-    switchInteres: 'No',
-    switchTiempo: 'No',
-    switchFuturo: 'No',
-    switchPresente: 'No',
+    switchPA: 'No',
+    switchPG: 'No',
+    switchInteresCompuesto: 'No',
+    switchPT: 'No',
 
-    radio: 0,
+    radio: 0, // m
     switchCapitalizable: 'No',
   }),
   methods: {
-    CalcularInteres () {
-      if (this.interes == 0 && this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No') {
-        this.interes = Math.pow( this.futuro / this.presente, 1 / this.tiempo) - 1
-        this.interes = this.interes * 100
-      }
+    CalcularMathPow(interes, tiempo){
+      return Math.pow((1 + interes), tiempo) 
     },
-    CalcularTiempo () {
-      if ( this.tiempo == 0 && this.switchTiempo == "Si" && this.switchInteres == 'No' && this.switchFuturo == 'No') {
+    CalcularPA  () {
+      if(this.tiempo > 0 && this.interes > 0 && this.AA > 0 && this.switchPA == 'Si' && this.switchPG == 'No' && this.switchInteresCompuesto == 'No' && this.switchPT == 'No' ){
         let interesNeto = 0
-        if(this.switchCapitalizable == 'No'){
+
+        if(this.switchCapitalizable == 'No')
           interesNeto = this.interes / 100
-        } else {
+        else
           interesNeto = this.Capitalizable(this.interes, this.radio)
-          console.log(interesNeto)
-        }
-        this.tiempo = Math.log(this.futuro / this.presente) / Math.log(1 + interesNeto)
+
+        let arriba = this.CalcularMathPow(interesNeto, this.tiempo) - 1
+        let abajo = interesNeto * (arriba + 1)
+        this.PA = this.AA * (arriba / abajo )
       }
     },
-    CalcularFuturo () {
-      if (this.presente == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
-        let interesNeto = this.interes / 100
-        let temporal = this.presente * ( 1 + interesNeto ) 
-        this.futuro = Math.pow( temporal, this.tiempo )
+    CalcularPG  () {
+      if( this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchPA == 'No' && this.switchPG == 'Si' && this.switchInteresCompuesto == 'No' && this.switchPT == 'No' ){
+        let interesNeto = 0
+
+        if(this.switchCapitalizable == 'No')
+          interesNeto = this.interes / 100
+        else
+          interesNeto = this.Capitalizable(this.interes, this.radio)
+
+        let interesConTiempo = this.CalcularMathPow(interesNeto, this.tiempo)
+
+        let top1 = interesConTiempo -1
+        let bot1 = interesNeto * interesConTiempo
+        let left = top1 / bot1
+
+        let right = this.tiempo / interesConTiempo
+
+        let adentro = left - right
+
+        let afuera = this.G / interesNeto
+
+        this.PG = afuera * adentro
+        console.log(this.PG)
       }
     },
-    CalcularPresente () {
-      if ( this.futuro == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
-        let interesNeto = this.interes / 100
-        this.presente = this.futuro / Math.pow(( 1 + interesNeto ), this.tiempo)
+    CalcularInteresCompuesto  () {
+      if( this.switchPA == 'No' &&
+          this.switchPG == 'No' &&
+          this.switchInteresCompuesto == 'No' &&
+          this.switchPT == 'No' ){
+
       }
     },
-    Capitalizable ( interesSimple, tiempo ){
+    CalcularPT  () {
+      if( this.switchPA == 'No' &&
+          this.switchPG == 'No' &&
+          this.switchInteresCompuesto == 'No' &&
+          this.switchPT == 'No' ){
+
+      }
+    },
+    // CalcularInteres () {
+    //   if (this.interes == 0 && this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No') {
+    //     this.interes = Math.pow( this.futuro / this.presente, 1 / this.tiempo) - 1
+    //     this.interes = this.interes * 100
+    //   }
+    // },
+    // CalcularTiempo () {
+    //   if ( this.tiempo == 0 && this.switchTiempo == "Si" && this.switchInteres == 'No' && this.switchFuturo == 'No') {
+    //     let interesNeto = 0
+    //     if(this.switchCapitalizable == 'No'){
+    //       interesNeto = this.interes / 100
+    //     } else {
+    //       interesNeto = this.Capitalizable(this.interes, this.radio)
+    //       console.log(interesNeto)
+    //     }
+    //     this.tiempo = Math.log(this.futuro / this.presente) / Math.log(1 + interesNeto)
+    //   }
+    // },
+    // CalcularFuturo () {
+    //   if (this.presente == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
+    //     let interesNeto = this.interes / 100
+    //     let temporal = this.presente * ( 1 + interesNeto ) 
+    //     this.futuro = Math.pow( temporal, this.tiempo )
+    //   }
+    // },
+    // CalcularPresente () {
+    //   if ( this.futuro == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
+    //     let interesNeto = this.interes / 100
+    //     this.presente = this.futuro / Math.pow(( 1 + interesNeto ), this.tiempo)
+    //   }
+    // },
+    Capitalizable ( interesSimple, periodo ){
       let resultado = 0
-      return resultado = ( interesSimple / tiempo ) / 100
+      return resultado = Math.pow( (1 + ((interesSimple / 100 ) / periodo)), periodo ) - 1
     }
   }
 }

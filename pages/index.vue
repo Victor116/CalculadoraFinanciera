@@ -62,7 +62,6 @@
         v-model="switchCapitalizable"
         true-value="Si"
         false-value="No"
-        :click="CalcularFuturo()"
       ) {{ switchCapitalizable }}
 
     .block(v-if="this.switchCapitalizable == 'Si'" style="margin-bottom: 2em")     
@@ -183,7 +182,6 @@ export default {
           interesNeto = this.interes / 100
         } else {
           interesNeto = this.Capitalizable(this.interes, this.radio)
-          console.log(interesNeto)
         }
         this.tiempo = Math.log(this.futuro / this.presente) / Math.log(1 + interesNeto)
       }
