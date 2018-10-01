@@ -169,6 +169,9 @@ export default {
     switchCapitalizable: 'No',
   }),
   methods: {
+    CalcularMathPow(interes, tiempo){
+      return Math.pow((1 + interes), tiempo) 
+    },
     CalcularInteres () {
       if (this.interes == 0 && this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No') {
         this.interes = Math.pow( this.futuro / this.presente, 1 / this.tiempo) - 1
@@ -176,7 +179,7 @@ export default {
       }
     },
     CalcularTiempo () {
-      if ( this.tiempo == 0 && this.switchTiempo == "Si" && this.switchInteres == 'No' && this.switchFuturo == 'No') {
+      if ( this.tiempo == 0 &&  this.interes > 0 &&  this.presente > 0 && this.switchTiempo == "Si" && this.switchInteres == 'No' && this.switchFuturo == 'No') {
         let interesNeto = 0
         if(this.switchCapitalizable == 'No'){
           interesNeto = this.interes / 100
@@ -187,16 +190,21 @@ export default {
       }
     },
     CalcularFuturo () {
-      if (this.presente == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
+      if (this.presente > 0 &&  this.interes > 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
         let interesNeto = this.interes / 100
         let temporal = this.presente * ( 1 + interesNeto ) 
         this.futuro = Math.pow( temporal, this.tiempo )
       }
     },
     CalcularPresente () {
-      if ( this.futuro == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
+      if ( this.futuro > 0 && this.interes > 0 && this.tiempo > 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
         let interesNeto = this.interes / 100
-        this.presente = this.futuro / Math.pow(( 1 + interesNeto ), this.tiempo)
+        console.log(interesNeto)
+        console.log(this.futuro)
+        console.log(this.tiempo)
+        console.log(this.CalcularMathPow(interesNeto, this.tiempo) )
+        console.log(this.futuro / this.CalcularMathPow(interesNeto, this.tiempo) )
+        this.presente = this.futuro / this.CalcularMathPow(interesNeto, this.tiempo) 
       }
     },
     Capitalizable ( interesSimple, tiempo ){
