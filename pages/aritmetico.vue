@@ -53,6 +53,42 @@
                 min="0"
                 v-model="PG"
               )
+            
+        //- AG
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey AG
+            .card-content
+              b-input(
+                placeholder="AG"
+                type="number"
+                min="0"
+                v-model="AG"
+              )
+
+        //- PT
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey PT
+            .card-content
+              b-input(
+                placeholder="PT"
+                type="number"
+                min="0"
+                v-model="PT"
+              )
+
+        //- AT
+        .column.is-3-desktop.is-6-mobile
+          .card
+            p.card-header-title.has-text-grey AT
+            .card-content
+              b-input(
+                placeholder="AT"
+                type="number"
+                min="0"
+                v-model="AT"
+              )
 
         //- Interes
         .column.is-3-desktop.is-6-mobile
@@ -142,16 +178,7 @@
     
     div
 
-    p(style="margin-top: 2em") ¿Calcular Interes Compuesto (ia)? 
-      b-switch(
-        type="is-success"
-        v-model="switchInteresCompuesto"
-        true-value="Si"
-        false-value="No"
-        :click="CalcularInteresCompuesto()"
-      ) {{ switchInteresCompuesto }}
-
-    p ¿Calcular PA? 
+    p(style="margin-top: 2em") ¿Calcular PA? 
       b-switch(
         type="is-success"
         v-model="switchPA"
@@ -169,6 +196,15 @@
         :click="CalcularPG()"
       ) {{ switchPG }}
 
+    p ¿Calcular AG? 
+      b-switch(
+        type="is-success"
+        v-model="switchAG"
+        true-value="Si"
+        false-value="No"
+        :click="CalcularAG()"
+      ) {{ switchAG }}
+
     p ¿Calcular PT? 
       b-switch(
         type="is-success"
@@ -178,28 +214,53 @@
         :click="CalcularPT()"
       ) {{ switchPT }}
 
-    //- p(v-if="this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Interes: {{ interes }}%
-    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'Si' && this.switchFuturo == 'No' && this.switchPresente == 'No' ") Tiempo: {{ tiempo }}
-    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'Si' && this.switchPresente == 'No' ") Futuro: {{ futuro }}
-    //- p(v-if="this.switchInteres == 'No' && this.switchTiempo == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si' ") Presente: {{ presente }}
+    p ¿Sumar o Restar PT? 
+      b-switch(
+        type="is-success"
+        v-model="switchSumarPT"
+        true-value="Sumar"
+        false-value="Restar"
+      ) {{ switchSumarPT }}
 
+    p ¿Calcular AT? 
+      b-switch(
+        type="is-success"
+        v-model="switchAT"
+        true-value="Si"
+        false-value="No"
+        :click="CalcularAT()"
+      ) {{ switchAT }}
+
+    p ¿Sumar o Restar AT? 
+      b-switch(
+        type="is-success"
+        v-model="switchSumarAT"
+        true-value="Sumar"
+        false-value="Restar"
+      ) {{ switchSumarAT }}
 </template>
 
 <script>
 export default {
   name: 'Calculadora',
   data: () => ({
-    AA: 0,
-    G: 0,
-    PA: 0,
+    AA: 0, // Valor presente
+    AG: 0,
+    G:  0, // Gradiente
+    PA: 0, 
     PG: 0, // p
+    PT: 0,
+    AT: 0,
     interes: 0, // i
     tiempo: 0, // n
 
     switchPA: 'No',
     switchPG: 'No',
-    switchInteresCompuesto: 'No',
     switchPT: 'No',
+    switchAT: 'No',
+    switchAG: 'No',
+    switchSumarPT: 'Restar',
+    switchSumarAT: 'Restar',
 
     radio: 0, // m
     switchCapitalizable: 'No',
@@ -209,7 +270,7 @@ export default {
       return Math.pow((1 + interes), tiempo) 
     },
     CalcularPA  () {
-      if(this.tiempo > 0 && this.interes > 0 && this.AA > 0 && this.switchPA == 'Si' && this.switchPG == 'No' && this.switchInteresCompuesto == 'No' && this.switchPT == 'No' ){
+      if(this.tiempo > 0 && this.interes > 0 && this.AA > 0 && this.switchPA == 'Si' && this.switchPG == 'No' && this.switchPT == 'No' && this.switchAG == 'No' ){
         let interesNeto = 0
 
         if(this.switchCapitalizable == 'No')
@@ -223,7 +284,7 @@ export default {
       }
     },
     CalcularPG  () {
-      if( this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchPA == 'No' && this.switchPG == 'Si' && this.switchInteresCompuesto == 'No' && this.switchPT == 'No' ){
+      if( this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchPA == 'No' && this.switchPG == 'Si' && this.switchPT == 'No' && this.switchAG == 'No'){
         let interesNeto = 0
 
         if(this.switchCapitalizable == 'No')
@@ -244,56 +305,40 @@ export default {
         let afuera = this.G / interesNeto
 
         this.PG = afuera * adentro
-        console.log(this.PG)
       }
     },
-    CalcularInteresCompuesto  () {
-      if( this.switchPA == 'No' &&
-          this.switchPG == 'No' &&
-          this.switchInteresCompuesto == 'No' &&
-          this.switchPT == 'No' ){
+    CalcularAG () {
+      if( this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchAG == 'Si' && this.switchPA == 'No' && this.switchPG == 'No' && this.switchPT == 'No' ){
+        let interesNeto = 0
 
-      }
-    },
-    CalcularPT  () {
-      if( this.switchPA == 'No' &&
-          this.switchPG == 'No' &&
-          this.switchInteresCompuesto == 'No' &&
-          this.switchPT == 'No' ){
+        if(this.switchCapitalizable == 'No')
+          interesNeto = this.interes / 100
+        else
+          interesNeto = this.Capitalizable(this.interes, this.radio)
 
+        let left = 1 / interesNeto
+        let abajo1 = this.CalcularMathPow(interesNeto, this.tiempo) - 1
+        let right = this.tiempo / abajo1
+        this.AG = this.G * (left - right)
+        console.log(this.AG)
       }
     },
-    // CalcularInteres () {
-    //   if (this.interes == 0 && this.switchInteres == 'Si' && this.switchTiempo == 'No' && this.switchFuturo == 'No') {
-    //     this.interes = Math.pow( this.futuro / this.presente, 1 / this.tiempo) - 1
-    //     this.interes = this.interes * 100
-    //   }
-    // },
-    // CalcularTiempo () {
-    //   if ( this.tiempo == 0 && this.switchTiempo == "Si" && this.switchInteres == 'No' && this.switchFuturo == 'No') {
-    //     let interesNeto = 0
-    //     if(this.switchCapitalizable == 'No'){
-    //       interesNeto = this.interes / 100
-    //     } else {
-    //       interesNeto = this.Capitalizable(this.interes, this.radio)
-    //       console.log(interesNeto)
-    //     }
-    //     this.tiempo = Math.log(this.futuro / this.presente) / Math.log(1 + interesNeto)
-    //   }
-    // },
-    // CalcularFuturo () {
-    //   if (this.presente == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
-    //     let interesNeto = this.interes / 100
-    //     let temporal = this.presente * ( 1 + interesNeto ) 
-    //     this.futuro = Math.pow( temporal, this.tiempo )
-    //   }
-    // },
-    // CalcularPresente () {
-    //   if ( this.futuro == 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
-    //     let interesNeto = this.interes / 100
-    //     this.presente = this.futuro / Math.pow(( 1 + interesNeto ), this.tiempo)
-    //   }
-    // },
+    CalcularPT () {
+      if( this.PA > 0 && this.PG > 0 && this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchPT == 'Si' && this.switchAG == 'No' && this.switchPA == 'No' && this.switchPG == 'No' ){
+        if(this.switchSumarPT == 'Restar')
+          this.PT = this.PA - this.PG 
+        else 
+          this.PT = this.PA + this.PG   
+      }
+    },
+    CalcularAT () {
+      if( this.AA > 0 && this.AG > 0 && this.G > 0 && this.interes > 0 && this.tiempo > 0 && this.switchAT == 'Si' && this.switchAG == 'No' && this.switchPA == 'No' && this.switchPG == 'No' ){
+        if(this.switchSumarAT == 'Restar')
+          this.AT = this.AA - this.AG 
+        else 
+          this.AT = this.AA + this.AG   
+      }
+    },
     Capitalizable ( interesSimple, periodo ){
       let resultado = 0
       return resultado = Math.pow( (1 + ((interesSimple / 100 ) / periodo)), periodo ) - 1
