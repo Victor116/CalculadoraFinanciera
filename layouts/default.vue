@@ -33,7 +33,7 @@
             <nuxt-link
               :to="item.to"
               exact-active-class="is-active">
-              <b-icon :icon="item.icon"/> {{ item.title }}
+              <b-icon class="fas" :icon="item.icon"/> {{ item.title }}
             </nuxt-link>
           </li>
         </ul>
@@ -53,8 +53,8 @@ export default {
     return {
       items: [
         { title: 'Pago Unico', icon: 'home', to: { name: 'index' } },
-        { title: 'Gradiente aritmetico', icon: 'lightbulb', to: { name: 'aritmetico' } },
-        { title: 'Gradiente geometrico', icon: 'lightbulb', to: { name: 'geometrico' } }
+        { title: 'Gradiente aritmetico', icon: 'chart-bar', to: { name: 'aritmetico' } },
+        { title: 'Gradiente geometrico', icon: 'chart-line', to: { name: 'geometrico' } }
       ]
     }
   }

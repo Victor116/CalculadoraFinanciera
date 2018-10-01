@@ -1,5 +1,9 @@
 <template lang="pug">
   .notification
+    h1.subtitle Pago Unico
+      span.icon(style="margin-left: 1em")
+        i.fas.fa-money-bill-alt
+
     .column.is-12-desktop.is-12-mobile
       .columns.is-multiline.is-mobile
         //- Futuro
@@ -51,6 +55,8 @@
               )
 
     p ¿Capitalizable? 
+      span.icon
+       i.fas.fa-file-invoice-dollar
       b-switch(
         type="is-success"
         v-model="switchCapitalizable"
@@ -146,13 +152,9 @@
 </template>
 
 <script>
-import BLogo from '@/components/Logo'
 
 export default {
   name: 'Calculadora',
-  components: {
-    BLogo
-  },
   data: () => ({
     futuro: 0, // F
     presente: 0, // P
