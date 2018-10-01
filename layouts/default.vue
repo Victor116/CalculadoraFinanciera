@@ -52,8 +52,9 @@ export default {
   data() {
     return {
       items: [
-        { title: 'Home', icon: 'home', to: { name: 'index' } },
-        { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } }
+        { title: 'Pago Unico', icon: 'home', to: { name: 'index' } },
+        { title: 'Gradiente aritmetico', icon: 'lightbulb', to: { name: 'aritmetico' } },
+        { title: 'Gradiente geometrico', icon: 'lightbulb', to: { name: 'geometrico' } }
       ]
     }
   }
