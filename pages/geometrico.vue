@@ -240,7 +240,7 @@ export default {
           interesNetog = this.g / 100
         } else {
           interesNetoi = this.Capitalizable(this.g, this.radio)
-          interesNetog = this.Capitalizable(this.i, this.radio)
+          interesNetog = this.g / 100
         }
         
         if(this.interes == this.g)
@@ -286,7 +286,7 @@ export default {
     // },
     Capitalizable ( interesSimple, tiempo ){
       let resultado = 0
-      return resultado = ( interesSimple / tiempo ) / 100
+      return resultado = Math.pow( (1 + ((interesSimple / 100 ) / tiempo)), tiempo ) - 1
     }
   }
 }

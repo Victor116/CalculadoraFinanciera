@@ -191,20 +191,30 @@ export default {
     },
     CalcularFuturo () {
       if (this.presente > 0 &&  this.interes > 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'Si') {
-        let interesNeto = this.interes / 100
-        let temporal = this.presente * ( 1 + interesNeto ) 
-        this.futuro = Math.pow( temporal, this.tiempo )
+        let interesNeto = 0
+        if(this.switchCapitalizable == 'No'){
+          interesNeto = this.interes / 100
+        } else {
+          interesNeto = this.Capitalizable(this.interes, this.radio)
+        }
+        let adentro =  Math.pow( 1 + interesNeto, this.tiempo ) 
+        this.futuro = this.presente * adentro
       }
     },
     CalcularPresente () {
       if ( this.futuro > 0 && this.interes > 0 && this.tiempo > 0 && this.switchTiempo == "No" && this.switchInteres == 'No' && this.switchFuturo == 'No' && this.switchPresente == 'Si') {
-        let interesNeto = this.interes / 100
-        this.presente = this.futuro / this.CalcularMathPow(interesNeto, this.tiempo) 
+        let interesNeto = 0
+        if(this.switchCapitalizable == 'No'){
+          interesNeto = this.interes / 100
+        } else {
+          interesNeto = this.Capitalizable(this.interes, this.radio)
+        }
+        this.presente = this.futuro / this.CalcularMathPow(interesNeto, this.tiempo)
       }
     },
     Capitalizable ( interesSimple, tiempo ){
       let resultado = 0
-      return resultado = ( interesSimple / tiempo ) / 100
+      return resultado = this.CalcularMathPow( (interesSimple / tiempo ) / 100, this.radio) - 1
     }
   }
 }
