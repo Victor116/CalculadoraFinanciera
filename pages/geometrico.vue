@@ -239,7 +239,7 @@ export default {
           interesNetoi = this.interes / 100
           interesNetog = this.g / 100
         } else {
-          interesNetoi = this.Capitalizable(this.g, this.radio)
+          interesNetoi = this.Capitalizable(this.interes, this.radio)
           interesNetog = this.g / 100
         }
         
