@@ -184,7 +184,7 @@ export default {
         if(this.switchCapitalizable == 'No'){
           interesNeto = this.interes / 100
         } else {
-          interesNeto = this.Capitalizable(this.interes, this.radio)
+          interesNeto = this.Capitalizable(this.interes, this.radio) 
         }
         this.tiempo = Math.log(this.futuro / this.presente) / Math.log(1 + interesNeto)
       }
